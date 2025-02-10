@@ -33,6 +33,9 @@ const config: Config = {
         yellow: {
           DEFAULT: "#fad53f",
         },
+        discord: {
+          DEFAULT: "#7289da",
+        },
         background: {
           top: "#E3938B",
           transition: "#DE6F67",

@@ -8,6 +8,7 @@ import {
   BellIcon,
   CalendarIcon,
   ClockIcon,
+  LinkIcon,
   StarIcon,
 } from "@heroicons/react/16/solid";
 import { MapPinIcon } from "@heroicons/react/24/outline";
@@ -66,74 +67,48 @@ export const ScheduleEventCard: React.FC<ScheduleEventCardProps> = ({
 
   return (
     <div className="w-full flex justify-center items-start py-4">
-      {/* Scrollable horizontal container */}
-      <div className="flex flex-row overflow-x-scroll space-x-4 w-full">
-        {/* Wrap every 4 cards in a container */}
-        {Array.from({ length: Math.ceil(events.length / 4) }).map(
-          (_, rowIndex) => (
-            <div key={rowIndex} className="flex flex-row space-x-4">
-              {events
-                .slice(rowIndex * 4, rowIndex * 4 + 4) // Group 4 cards per row
-                .map((event, index) => (
-                  <div
-                    key={index}
-                    className="relative bg-white rounded-lg p-5 overflow-hidden w-80"
-                  >
-                    <div className="relative z-10">
-                      {/* Event Title */}
-                      <h5 className="mb-2 text-2xl font-bold tracking-tight font-sans text-pink-accent">
-                        {event.event_name || "Event Title"}
-                      </h5>
-                      {/* Date, Start Time - End Time */}
-                      <p className="flex flex-row items-center space-x-2 mb-1 font-body text-med font-semibold text-brown-500">
-                        <>
-                          <ClockIcon className="w-4 h-4 mr-2" />{" "}
-                        </>{" "}
-                        {event.date}
-                        {", "}
-                        {event.start_time}{" "}
-                        {calculateEndTime(
-                          event.start_time,
-                          event.duration?.toString()
-                        )}
-                      </p>
-                      {/* Location */}
-                      <p className="flex flex-row items-center space-x-2 mb-1 font-body text-brown-500">
-                        <MapPinIcon className="w-4 h-4 mr-2" />{" "}
-                        {event.location || "TBD"}
-                      </p>
-                      {/* Event Link */}
-                      {event.link && (
-                        <a
-                          href={event.link}
-                          className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-300 rounded-lg hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-red-200 mt-5"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          Event Details
-                          <svg
-                            className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 14 10"
-                          >
-                            <path
-                              stroke="currentColor"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                              d="M1 5h12m0 0L9 1m4 4L9 9"
-                            />
-                          </svg>
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                ))}
+      <div className="w-full flex flex-col space-y-4">
+        {events.map((event, index) => (
+          <div
+            key={index}
+            className="w-full content-center flex flex-col md:flex-row justify-between bg-white rounded-lg p-5 overflow-hidden w-80"
+          >
+            <div className="w-full flex flex-col justify-between">
+              {/* Event Title */}
+              <h5 className="mb-2 text-2xl font-bold tracking-tight font-sans text-pink-accent">
+                {event.event_name || "Event Title"}
+              </h5>
+              {/* Date, Start Time - End Time */}
+              <p className="flex flex-row items-center space-x-2 font-body text-med font-semibold text-brown-500">
+                <>
+                  <ClockIcon className="w-4 h-4 mr-2" />{" "}
+                </>{" "}
+                {event.date}
+                {", "}
+                {event.start_time}{" "}
+                {calculateEndTime(event.start_time, event.duration?.toString())}
+              </p>
+              {/* Location */}
+              <p className="flex flex-row items-center gap-2 font-body text-brown-500">
+                <MapPinIcon className="w-4 h-4" />
+                {event.location || "TBD"}
+              </p>
             </div>
-          )
-        )}
+            <div>
+              {/* Event Link */}
+              {event.link && (
+                <a
+                  href={event.link}
+                  className="inline-flex items-center p-2 text-sm font-medium text-center text-white bg-red-300 rounded-lg hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-red-200 mt-5"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <LinkIcon className="w-4 h-4 mr-1" /> Post-event slides
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

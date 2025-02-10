@@ -31,7 +31,7 @@ export function Navbar({ mode }: NavbarProps) {
         </Link>
         <span className="z-30 flex flex-wrap items-center">
           <span className="hidden sm:flex flex-row space-x-4">
-            {["About", "FAQ", "Resources", "Schedule"].map((link) => (
+            {["About", "FAQ", "Resources", "Schedule", "Live"].map((link) => (
               <div
                 key={link}
                 className={
